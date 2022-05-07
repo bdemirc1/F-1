@@ -45,9 +45,9 @@ app.get('/top_constructor', async(req, res) => {
     try{
         const topCons = await pool.query("select constructors.name, position from constructor_standings, constructors\
                                             where constructor_standings.constructorid = constructors.constructorid and\
-                                             constructor_standings.raceid = 1067\
-                                            order by constructor_standings.position limit 1;");
-        res.json(topCons.rows);
+                                             constructor_standings.raceid = 1067 and \
+                                            constructor_standings.position = 1;");
+        res.json(topCons.rows[0]);
 
     }catch(err){
         console.error(err.message);
@@ -59,8 +59,8 @@ app.get('/top_driver', async(req, res) => {
         const topDriver = await pool.query("select drivers.forename, drivers.surname, position from driver_standings, drivers\
                                 where driver_standings.driverid = drivers.driverid and\
                                 driver_standings.raceid = 1067\
-                                order by driver_standings.position limit 1;");
-        res.json(topDriver.rows);
+                                and driver_standings.position = 1;");
+        res.json(topDriver.rows[0]);
 
     }catch(err){
         console.error(err.message);

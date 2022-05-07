@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect } from 'react'
 import './Widget.scss';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import GroupWorkOutlinedIcon from '@mui/icons-material/GroupWorkOutlined';
@@ -7,47 +7,61 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 
 export default function Widget({ type }) {
     const [race, setRace] = useState({});
-    const [topConstructor, setTopConstructor] = useState([]);
-    const [topDriver, setTopDriver] = useState([]);
+    const [topConstructor, setTopConstructor] = useState({});
+    const [topDriver, setTopDriver] = useState({});
 
-    const getRace = async () => {
-        try{
-            const response = await fetch("http://localhost:5555/races/1067");
-            const jsonData = await response.json();
-            setRace(jsonData);
-        }catch(err){
-            console.error(err.message);
+    
+      /*  const getRace = async () => {
+                try{
+                    const response = await fetch("http://localhost:5555/races/1067");
+                    const jsonData = await response.json();
+                    if(jsonData){ setRace(jsonData)};
+                }catch(err){
+                    console.error(err.message);
+                }
         }
-    }
 
-    const getTopConstructor = async () => {
-        try{
-            const response = await fetch("http://localhost:5555/top_constructor");
-            const jsonData = await response.json();
-            setTopConstructor(jsonData);
-        }catch(err){
-            console.error(err.message);
+        const getTopConstructor = async () => {
+            try{
+                const response = await fetch("http://localhost:5555/top_constructor");
+                const jsonData = await response.json();
+                if (jsonData) {setTopConstructor(jsonData)};
+            }catch(err){
+                console.error(err.message);
+            }
         }
-    }
 
-    const getTopDriver = async () => {
-        try{
-            const response = await fetch("http://localhost:5555/top_driver");
-            const jsonData = await response.json();
-            setTopDriver(jsonData);
-        }catch(err){
-            console.error(err.message);
-        }
-    }
+        const getTopDriver = async () => {
+            try{
+                const response = await fetch("http://localhost:5555/top_driver");
+                const jsonData = await response.json();
+                if (jsonData) {setTopDriver(jsonData)};
+            }catch(err){
+                console.error(err.message);
+            }
+        }   */
+    
+       const fetchAll = async () => {
+            try{
+                const results = await Promise.all([
+                    fetch("http://localhost:5555/races/1067").then((resRace) => resRace.json()).then((raceJson) => setRace(raceJson) ),
+                    fetch("http://localhost:5555/top_constructor").then((resTopConstructor) => resTopConstructor.json()).then((topConsJson) => setTopConstructor(topConsJson)),
+                    fetch("http://localhost:5555/top_driver").then((resTopDriver) => resTopDriver.json()).then((topDriverJson) => setTopDriver(topDriverJson)),
+                ])
+                //console.log(results)
+            }catch(err){
+                console.error(err.message);
+            }
+        }  
 
     useEffect(()=>{
-        getRace();
-        getTopConstructor();
-        getTopDriver();
+        fetchAll();
+        
     }, []);
+
     console.log(race);
     console.log(topConstructor);
-    console.log(topDriver);
+    console.log(topDriver); 
 
     let data;
     switch(type){
@@ -66,7 +80,7 @@ export default function Widget({ type }) {
                 isDate: false,
                 link: 'See all constructors',
                 icon:  <GroupWorkOutlinedIcon className='icon'/>,
-                info: topConstructor[0].name
+                info: topConstructor.name
             };
         break;
         case 'driver':
@@ -75,7 +89,7 @@ export default function Widget({ type }) {
                 isDate: false,
                 link: 'See all drivers',
                 icon:  <PersonOutlineOutlinedIcon className='icon'/>,
-                info: topDriver[0].forename + " " + topDriver[0].surname
+                info: topDriver.forename + " " + topDriver.surname
                 
             };
         break;
