@@ -3,8 +3,8 @@ import "./Home.scss";
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Navbar from '../../components/Navbar/Navbar';
 import Widget from '../../components/widget/Widget';
-import Featured from '../../components/chart/Featured/Featured';
 import Chart from '../../components/chart/Chart/Chart';
+import Featured from '../../components/chart/Featured/Featured';
 
 
 function Home() {
@@ -19,9 +19,10 @@ function Home() {
             <Widget type='driver'/>
           </div>
           <div className="charts">
-            <Featured/>
-            <Chart/>
+            <Chart className= "chart1"/>   
           </div>
+      
+          
         </div>
 
     </div>

@@ -78,6 +78,20 @@ app.get('/drivers', async(req, res) => {
     }
 });
 
+app.get('/fastestLapTime', async(req, res) => {
+    try{
+        const fastestLapTime = await pool.query("select code, fastestlaptime from results, drivers\
+                                                where raceid = 1067 and drivers.driverid = results.driverid");
+        if(fastestLapTime.rows?.length){
+            console.log(fastestLapTime.rows)
+            return res.json(fastestLapTime.rows);
+        }
+
+    }catch(err){
+        console.error(err.message);
+    }
+});
+
 app.listen(5555, () => {
     console.log('server started on port 5555');
 });
