@@ -19,7 +19,10 @@ function Home() {
             <Widget type='driver'/>
           </div>
           <div className="charts">
-            <Chart className= "chart1"/>   
+            <Chart className= "chart1"/>
+          </div>
+          <div className="featured">
+            <Featured/>
           </div>
       
           

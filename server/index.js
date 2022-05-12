@@ -9,7 +9,6 @@ app.use(express.json());
 
 
 //Routes
-
 app.get('/races', async(req, res) => {
     try{
         const allRaces = await pool.query("SELECT * from races limit 5");
@@ -85,6 +84,23 @@ app.get('/fastestLapTime', async(req, res) => {
         if(fastestLapTime.rows?.length){
             console.log(fastestLapTime.rows)
             return res.json(fastestLapTime.rows);
+        }
+
+    }catch(err){
+        console.error(err.message);
+    }
+});
+
+app.get('/pitStops', async(req, res) => {
+    try{
+        const pitStops = await pool.query("select constructors.name, round (sum(pit_stops.milliseconds::numeric/1000)::numeric,2) as pit_stop_time from pit_stops, results, constructors\
+                                            where pit_stops.raceid = 1067 and\
+                                            pit_stops.driverid = results.driverid and\
+                                            pit_stops.raceid = results.raceid and\
+                                            constructors.constructorid = results.constructorid\
+                                            group by constructors.name");
+        if(pitStops.rows?.length){
+            return res.json(pitStops.rows);
         }
 
     }catch(err){
