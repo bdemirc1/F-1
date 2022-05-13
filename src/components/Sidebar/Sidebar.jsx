@@ -28,7 +28,7 @@ function Sidebar() {
                 </li>
                 <li>
                     <SportsScoreOutlinedIcon className='icon'/>
-                    <span>Races</span>
+                    <span>Add Driver</span>
                 </li>
             </ul>
         </div>
