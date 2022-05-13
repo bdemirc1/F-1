@@ -1,10 +1,17 @@
 import React from 'react'
+import ConstructorDatatable from '../../components/datatable/ConstructorDatatable';
+import Navbar from '../../components/Navbar/Navbar';
+import Sidebar from '../../components/Sidebar/Sidebar';
 import './Constructors.scss';
 
 function Constructors() {
   return (
     <div className='constructors'>
-        <h1>Constructors</h1>
+      <Sidebar/>
+      <div className="constructorsContainer">
+        <Navbar/>
+        <ConstructorDatatable/>
+      </div>
     </div>
   )
 }

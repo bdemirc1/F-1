@@ -20,11 +20,11 @@ function Sidebar() {
                 </li>
                 <li>
                     <GroupWorkOutlinedIcon className='icon'/>
-                    <span>Constructors</span>
+                    <span>Constructor Standings</span>
                 </li>
                 <li>
                     <PersonOutlineOutlinedIcon className='icon'/>
-                    <span>Drivers</span>
+                    <span>Driver Standings</span>
                 </li>
                 <li>
                     <SportsScoreOutlinedIcon className='icon'/>

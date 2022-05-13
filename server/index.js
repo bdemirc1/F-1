@@ -108,6 +108,34 @@ app.get('/pitStops', async(req, res) => {
     }
 });
 
+
+app.get('/drivers_standing', async(req, res) => {
+    try{
+        const drivers_standings = await pool.query("select forename, surname, position, dob, nationality, url from drivers, driver_standings where\
+                                        driver_standings.raceid = 1067 and drivers.driverid = driver_standings.driverid\
+                                        order by position;");
+        if(drivers_standings.rows?.length){
+            return res.json(drivers_standings.rows);
+        }
+    }catch(err){
+        console.error(err.message);
+    }
+});
+
+app.get('/constructor_standings', async(req, res) => {
+    try{
+        const constructor_standings = await pool.query("select name, position, nationality, url from constructor_standings, constructors\
+                                                    where raceid = 1067 and constructor_standings.constructorid = constructors.constructorid\
+                                                    order by position;");
+        if(constructor_standings.rows?.length){
+            return res.json(constructor_standings.rows);
+        }
+    }catch(err){
+        console.error(err.message);
+    }
+});
+
+
 app.listen(5555, () => {
     console.log('server started on port 5555');
 });
