@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import './DriverDatatable.scss';
+import './DriverStandingDatatable.scss';
 import { DataGrid } from '@mui/x-data-grid';
   
 
-function DriverDatatable() {
+function DriverStandingDatatable() {
     const [driversStanding, setDriversStanding ] =  useState([]);
 
     const columns = [
@@ -78,4 +78,4 @@ function DriverDatatable() {
   )
 }
 
-export default DriverDatatable
+export default DriverStandingDatatable

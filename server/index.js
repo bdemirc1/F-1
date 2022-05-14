@@ -7,7 +7,6 @@ const pool = require('./db');
 app.use(cors());
 app.use(express.json());
 
-
 //Routes
 app.get('/races', async(req, res) => {
     try{
@@ -24,16 +23,6 @@ app.get('/races/:id', async(req, res) => {
         const {id} = req.params;
         const race = await pool.query("SELECT * from races WHERE raceid = $1", [id]);
         res.json(race.rows[0]);
-
-    }catch(err){
-        console.error(err.message);
-    }
-});
-
-app.get('/constructors', async(req, res) => {
-    try{
-        const allCons = await pool.query("SELECT * from constructors limit 20");
-        res.json(allCons.rows);
 
     }catch(err){
         console.error(err.message);
@@ -66,16 +55,6 @@ app.get('/top_driver', async(req, res) => {
     }
 })
 
-
-app.get('/drivers', async(req, res) => {
-    try{
-        const allDrivers = await pool.query("SELECT * from constructors limit 25");
-        res.json(allDrivers.rows);
-
-    }catch(err){
-        console.error(err.message);
-    }
-});
 
 app.get('/fastestLapTime', async(req, res) => {
     try{
@@ -134,6 +113,32 @@ app.get('/constructor_standings', async(req, res) => {
         console.error(err.message);
     }
 });
+
+//Last added drivers
+app.get('/drivers', async(req, res) => {
+    try{
+        const drivers = await pool.query("select forename, surname, code, dob, nationality, url from drivers\
+                                                     order by driverid desc limit 10;");
+        if(drivers.rows?.length){
+            return res.json(drivers.rows);
+        }
+    }catch(err){
+        console.error(err.message);
+    }
+});
+
+//Post new driver
+app.post("/drivers", async(req, res) => {
+    try {
+      const {code, firstName, lastName, dob, nationality, url} = req.body;
+      const newDriver = await pool.query("INSERT INTO drivers( driverref, code, forename, surname, dob, nationality, url)\
+                            VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *", [ lastName, code, firstName, lastName, dob, nationality, url ])
+        res.json(newDriver.rows[0]);
+    } catch (err) {
+        console.error(err.message)
+    }
+});
+
 
 
 app.listen(5555, () => {

@@ -15,8 +15,8 @@ function App() {
                 <Routes>
                     <Route path="/">
                         <Route index element={<Home/>}/>
-                        <Route path='drivers' element={<Drivers/>}/>
-                        <Route path='constructors' element={<Constructors/>}/>
+                        <Route path='driver_standings' element={<Drivers/>}/>
+                        <Route path='constructor_standings' element={<Constructors/>}/>
                         <Route path='addDriver' element= {<AddDriver/>}/>
                     </Route>
                 </Routes>

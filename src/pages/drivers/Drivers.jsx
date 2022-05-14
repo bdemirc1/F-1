@@ -1,5 +1,5 @@
 import React from 'react'
-import DriverDatatable from '../../components/datatable/DriverDatatable';
+import DriverStandingDatatable from '../../components/datatable/DriverStandingDatatable';
 import Navbar from '../../components/Navbar/Navbar';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import './Drivers.scss';
@@ -10,7 +10,7 @@ function Drivers() {
         <Sidebar/>
         <div className="driversContainer">
           <Navbar/>
-          <DriverDatatable/>
+          <DriverStandingDatatable/>
         </div>
     </div>
   )
