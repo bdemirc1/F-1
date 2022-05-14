@@ -43,7 +43,7 @@ function Featured() {
     <div className='featured'>
         <div className="title">Total Pit Stops</div>
         <div className="chart">
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="100%" height="70%">
         <BarChart
           width={400}
           height={300}

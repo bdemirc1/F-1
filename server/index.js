@@ -10,7 +10,7 @@ app.use(express.json());
 //Routes
 app.get('/races', async(req, res) => {
     try{
-        const allRaces = await pool.query("SELECT * from races limit 5");
+        const allRaces = await pool.query("select raceid, name, date from races");
         res.json(allRaces.rows);
 
     }catch(err){
