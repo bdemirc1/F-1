@@ -16,7 +16,7 @@ function Chart() {
                 setLapTimes(jsonData)
             }
             else {console.log("json data empty")}; */
-            console.log(lapTimes);
+            
         }catch(err){
             console.error(err.message);
         }
@@ -33,19 +33,24 @@ function Chart() {
     }
 
     const getDataForGraph = () => {
+        if (lapTimes){
         setData(lapTimes.map((item) => {
             return {name: item.code, time: stringToTime(item.fastestlaptime)}
         }))
-        console.log(data)
+      }
+        //console.log(data)
     }
 
     useEffect(() => {
         getLapTimes();
-        getDataForGraph();
         return () => {};
     }, [])
 
+    useEffect( () => {
+      getDataForGraph();
+    }, [lapTimes]);
 
+  console.log(lapTimes);
   return (
     <div className='chart'>
         <div className="title">Fastest Lap Times</div>

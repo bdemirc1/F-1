@@ -51,14 +51,15 @@ function DriversDatatable() {
                     setDrivers(jsonData)
                 }
                 else {console.log("json data empty")};
-                console.log(drivers);
+                
             }catch(err){
                 console.error(err.message);
             }
         }
         getDrivers()
     }, []);
-
+  
+  console.log(drivers);
   return (
     <>
         <div className="driversDatatable"></div>

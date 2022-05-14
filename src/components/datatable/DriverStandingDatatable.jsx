@@ -52,7 +52,7 @@ function DriverStandingDatatable() {
                     setDriversStanding(jsonData)
                 }
                 else {console.log("json data empty")};
-                console.log(driversStanding);
+                
             }catch(err){
                 console.error(err.message);
             }
@@ -61,7 +61,7 @@ function DriverStandingDatatable() {
     }, []);
     
 
- 
+  console.log(driversStanding);
   return (
     <div>
       <div className="title">Driver Standings</div>

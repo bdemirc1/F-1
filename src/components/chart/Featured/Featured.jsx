@@ -11,7 +11,7 @@ function Featured() {
   const getpitStops = async () => {
     try{
         const response = await fetch("http://localhost:5555/pitStops").then((respitStops) => respitStops.json()).then((pitJson) => setpitStops(pitJson) );
-        console.log(pitStops);
+        
     }catch(err){
         console.error(err.message);
     }
@@ -31,10 +31,14 @@ function Featured() {
 
   useEffect(() => {
     getpitStops();
-    getDataforChart();
     return () => {};
   }, [])
 
+  useEffect(() => {
+    getDataforChart();
+  }, [pitStops]);
+  
+  console.log(pitStops);
   return (
     <div className='featured'>
         <div className="title">Total Pit Stops</div>

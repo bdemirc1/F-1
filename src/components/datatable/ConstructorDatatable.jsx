@@ -43,17 +43,14 @@ function ConstructorDatatable() {
                     setConstructorStandings(jsonData)
                 }
                 else {console.log("json data empty")};
-                console.log(constructorStandings);
             }catch(err){
                 console.error(err.message);
             }
         }
         getConstructorStandings()
     }, []);
-    
-
-
-
+  
+    console.log(constructorStandings);
   return (
     <div>
         <div className="title">Constructor Standings</div>
