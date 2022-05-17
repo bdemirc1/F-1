@@ -8,6 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 //Routes
+// only get the races with pit_stop data!!
 app.get('/races', async(req, res) => {
     try{
         const allRaces = await pool.query("select distinct races.raceid, races.name, races.date from races, results where results.raceid = races.raceid\
@@ -99,11 +100,12 @@ app.get('/pitStops/:id', async(req, res) => {
 });
 
 
-app.get('/drivers_standing', async(req, res) => {
+app.get('/drivers_standing/:id', async(req, res) => {
     try{
+        const {id} = req.params;
         const drivers_standings = await pool.query("select forename, surname, position, dob, nationality, url from drivers, driver_standings where\
-                                        driver_standings.raceid = 1067 and drivers.driverid = driver_standings.driverid\
-                                        order by position;");
+                                        driver_standings.raceid = $1 and drivers.driverid = driver_standings.driverid\
+                                        order by position;", [id]);
         if(drivers_standings.rows?.length){
             return res.json(drivers_standings.rows);
         }
@@ -112,11 +114,12 @@ app.get('/drivers_standing', async(req, res) => {
     }
 });
 
-app.get('/constructor_standings', async(req, res) => {
+app.get('/constructor_standings/:id', async(req, res) => {
     try{
+        const {id} = req.params;
         const constructor_standings = await pool.query("select name, position, nationality, url from constructor_standings, constructors\
-                                                    where raceid = 1067 and constructor_standings.constructorid = constructors.constructorid\
-                                                    order by position;");
+                                                    where raceid = $1 and constructor_standings.constructorid = constructors.constructorid\
+                                                    order by position;", [id]);
         if(constructor_standings.rows?.length){
             return res.json(constructor_standings.rows);
         }

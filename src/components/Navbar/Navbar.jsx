@@ -14,7 +14,6 @@ function Navbar() {
     setSearchTerm(searchTerm);
     setDate(xdate);
     setRaceid(xraceid);
-    console.log(raceid);
   }
 
   useEffect(() => {
@@ -33,7 +32,7 @@ function Navbar() {
     }
     getData()
 }, []);
-
+  console.log("Raceid", raceid);
   console.log(data);
   return (
     <div className='navbar'>

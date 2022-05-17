@@ -1,8 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import './ConstructorDatatable.scss';
 import { DataGrid } from '@mui/x-data-grid';
+import { UserContext } from '../../UserContext';
 
 function ConstructorDatatable() {
+    const {raceid} = useContext(UserContext);
     const [constructorStandings, setConstructorStandings ] =  useState([]);
 
     const columns = [
@@ -37,7 +39,7 @@ function ConstructorDatatable() {
     useEffect(() => {
         const getConstructorStandings = async () => {
             try{
-                const response = await fetch("http://localhost:5555/constructor_standings");
+                const response = await fetch(`http://localhost:5555/constructor_standings/${raceid}`);
                 const jsonData = await response.json();
                 if (jsonData){
                     setConstructorStandings(jsonData)
@@ -48,7 +50,7 @@ function ConstructorDatatable() {
             }
         }
         getConstructorStandings()
-    }, []);
+    }, [raceid]);
   
     console.log(constructorStandings);
   return (

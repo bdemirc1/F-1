@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './DriverStandingDatatable.scss';
 import { DataGrid } from '@mui/x-data-grid';
+import { UserContext } from '../../UserContext';
   
 
 function DriverStandingDatatable() {
+    const {raceid} = useContext(UserContext);
     const [driversStanding, setDriversStanding ] =  useState([]);
 
     const columns = [
@@ -46,7 +48,7 @@ function DriverStandingDatatable() {
     useEffect(() => {
         const getDriversStanding = async () => {
             try{
-                const response = await fetch("http://localhost:5555/drivers_standing");
+                const response = await fetch(`http://localhost:5555/drivers_standing/${raceid}`);
                 const jsonData = await response.json();
                 if (jsonData){
                     setDriversStanding(jsonData)
@@ -58,10 +60,10 @@ function DriverStandingDatatable() {
             }
         }
         getDriversStanding()
-    }, []);
+    }, [raceid]);
     
-
-  console.log(driversStanding);
+  console.log("Raceid", raceid);
+  console.log("Driver standing", driversStanding);
   return (
     <div>
       <div className="title">Driver Standings</div>

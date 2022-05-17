@@ -95,6 +95,7 @@ function AddDriver() {
             </div>
           </div>
           <div className="list">
+            <div className="title">Last Added Drivers</div>
             <DriversDatable className='datatable'/>
           </div>
         </div>
