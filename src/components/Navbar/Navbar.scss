@@ -35,10 +35,15 @@
                 border: 1px solid lightgray;
                 flex-direction: column;
                 width: 280px;
+                height: 200px;
+                margin-top: 21px;
                 z-index: 1;
                 position: absolute;
+                overflow: hidden;
+                overflow-y: auto;
     
-                .dropdown:empty{
+                &:empty{
+                    height: auto;
                     border: none;
                 }
     

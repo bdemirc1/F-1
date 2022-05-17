@@ -10,7 +10,10 @@ app.use(express.json());
 //Routes
 app.get('/races', async(req, res) => {
     try{
-        const allRaces = await pool.query("select raceid, name, date from races");
+        const allRaces = await pool.query("select distinct races.raceid, races.name, races.date from races, results where results.raceid = races.raceid\
+                                        and races.raceid in (select results.raceid from results left join pit_stops on results.raceid = pit_stops.raceid\
+                                        where pit_stops.raceid is not null)\
+                                        order by 3 desc;");
         res.json(allRaces.rows);
 
     }catch(err){
@@ -29,12 +32,13 @@ app.get('/races/:id', async(req, res) => {
     }
 });
 
-app.get('/top_constructor', async(req, res) => {
+app.get('/top_constructor/:id', async(req, res) => {
     try{
+        const {id} = req.params;
         const topCons = await pool.query("select constructors.name, position from constructor_standings, constructors\
                                             where constructor_standings.constructorid = constructors.constructorid and\
-                                             constructor_standings.raceid = 1067 and \
-                                            constructor_standings.position = 1;");
+                                             constructor_standings.raceid = $1 and \
+                                            constructor_standings.position = 1;",[id]);
         res.json(topCons.rows[0]);
 
     }catch(err){
@@ -42,12 +46,13 @@ app.get('/top_constructor', async(req, res) => {
     }
 })
 
-app.get('/top_driver', async(req, res) => {
+app.get('/top_driver/:id', async(req, res) => {
     try{
+        const {id} = req.params;
         const topDriver = await pool.query("select drivers.forename, drivers.surname, position from driver_standings, drivers\
                                 where driver_standings.driverid = drivers.driverid and\
-                                driver_standings.raceid = 1067\
-                                and driver_standings.position = 1;");
+                                driver_standings.raceid = $1\
+                                and driver_standings.position = 1;",[id]);
         res.json(topDriver.rows[0]);
 
     }catch(err){
@@ -56,10 +61,11 @@ app.get('/top_driver', async(req, res) => {
 })
 
 
-app.get('/fastestLapTime', async(req, res) => {
+app.get('/fastestLapTime/:id', async(req, res) => {
     try{
+        const {id} = req.params;
         const fastestLapTime = await pool.query("select code, fastestlaptime from results, drivers\
-                                                where raceid = 1067 and drivers.driverid = results.driverid");
+                                                where raceid = $1 and drivers.driverid = results.driverid", [id]);
         if(fastestLapTime.rows?.length){
             console.log(fastestLapTime.rows)
             return res.json(fastestLapTime.rows);
@@ -70,18 +76,23 @@ app.get('/fastestLapTime', async(req, res) => {
     }
 });
 
-app.get('/pitStops', async(req, res) => {
+app.get('/pitStops/:id', async(req, res) => {
     try{
+        const {id} = req.params;
         const pitStops = await pool.query("select constructors.name, round (sum(pit_stops.milliseconds::numeric/1000)::numeric,2) as pit_stop_time from pit_stops, results, constructors\
-                                            where pit_stops.raceid = 1067 and\
+                                            where results.raceid = $1 and\
                                             pit_stops.driverid = results.driverid and\
                                             pit_stops.raceid = results.raceid and\
                                             constructors.constructorid = results.constructorid\
-                                            group by constructors.name");
-        if(pitStops.rows?.length){
+                                            group by constructors.name;", [id]);
+    
+        if(pitStops && Object.keys(pitStops).length === 0
+        && Object.getPrototypeOf(pitStops) === Object.prototype){
+            return res.json({})
+        } else {
             return res.json(pitStops.rows);
-        }
-
+            }
+        
     }catch(err){
         console.error(err.message);
     }

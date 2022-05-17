@@ -7,21 +7,24 @@ import {
 import Drivers from './pages/drivers/Drivers';
 import Constructors from './pages/constructors/Constructors';
 import AddDriver from './pages/addDriver/AddDriver';
+import {UserProvider} from './UserContext';
 
 function App() {
+
     return (
         <div className='App'>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/">
-                        <Route index element={<Home/>}/>
-                        <Route path='driver_standings' element={<Drivers/>}/>
-                        <Route path='constructor_standings' element={<Constructors/>}/>
-                        <Route path='addDriver' element= {<AddDriver/>}/>
-                    </Route>
-                </Routes>
-            </BrowserRouter>
-
+            <UserProvider>
+                <BrowserRouter>
+                        <Routes>
+                            <Route path="/">     
+                                <Route index element={<Home/>}/>
+                                <Route path='driver_standings' element={<Drivers/>}/>
+                                <Route path='constructor_standings' element={<Constructors/>}/>
+                                <Route path='addDriver' element= {<AddDriver/>}/>
+                            </Route>
+                        </Routes>
+                </BrowserRouter>
+            </UserProvider>
         </div>
     )
 }

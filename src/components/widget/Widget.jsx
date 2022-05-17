@@ -1,19 +1,21 @@
-import React, {useState, useEffect } from 'react'
+import React, {useState, useEffect, useContext } from 'react'
 import './Widget.scss';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import GroupWorkOutlinedIcon from '@mui/icons-material/GroupWorkOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import { UserContext } from '../../UserContext';
 
 
 export default function Widget({ type }) {
+    const {raceid} = useContext(UserContext)
     const [race, setRace] = useState({});
     const [topConstructor, setTopConstructor] = useState({});
     const [topDriver, setTopDriver] = useState({});
 
     
-      /*  const getRace = async () => {
+      const getRace = async () => {
                 try{
-                    const response = await fetch("http://localhost:5555/races/1067");
+                    const response = await fetch(`http://localhost:5555/races/${raceid}`);
                     const jsonData = await response.json();
                     if(jsonData){ setRace(jsonData)};
                 }catch(err){
@@ -23,7 +25,7 @@ export default function Widget({ type }) {
 
         const getTopConstructor = async () => {
             try{
-                const response = await fetch("http://localhost:5555/top_constructor");
+                const response = await fetch(`http://localhost:5555/top_constructor/${raceid}`);
                 const jsonData = await response.json();
                 if (jsonData) {setTopConstructor(jsonData)};
             }catch(err){
@@ -33,31 +35,38 @@ export default function Widget({ type }) {
 
         const getTopDriver = async () => {
             try{
-                const response = await fetch("http://localhost:5555/top_driver");
+                const response = await fetch(`http://localhost:5555/top_driver/${raceid}`);
                 const jsonData = await response.json();
                 if (jsonData) {setTopDriver(jsonData)};
             }catch(err){
                 console.error(err.message);
             }
-        }   */
+        }  
     
-       const fetchAll = async () => {
+     /*   const fetchAll = async () => {
             try{
                 const results = await Promise.all([
-                    fetch("http://localhost:5555/races/1067").then((resRace) => resRace.json()).then((raceJson) => setRace(raceJson) ),
-                    fetch("http://localhost:5555/top_constructor").then((resTopConstructor) => resTopConstructor.json()).then((topConsJson) => setTopConstructor(topConsJson)),
-                    fetch("http://localhost:5555/top_driver").then((resTopDriver) => resTopDriver.json()).then((topDriverJson) => setTopDriver(topDriverJson)),
+                    fetch(`http://localhost:5555/races/${raceid}`).then((resRace) => resRace.json()).then((raceJson) => setRace(raceJson) ),
+                    fetch(`http://localhost:5555/top_constructor/${raceid}`).then((resTopConstructor) => resTopConstructor.json()).then((topConsJson) => setTopConstructor(topConsJson)),
+                    fetch(`http://localhost:5555/top_driver/${raceid}`).then((resTopDriver) => resTopDriver.json()).then((topDriverJson) => setTopDriver(topDriverJson)),
                 ])
                 //console.log(results)
             }catch(err){
                 console.error(err.message);
             }
-        }  
+        }   */
 
     useEffect(()=>{
-        fetchAll();
-        
-    }, []);
+        getRace();
+    }, [raceid]);
+
+    useEffect(()=>{
+        getTopConstructor();
+    }, [raceid]);
+
+    useEffect(()=>{
+        getTopDriver();
+    }, [raceid]);
 
     console.log(race);
     console.log(topConstructor);

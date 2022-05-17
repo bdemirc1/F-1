@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './Navbar.scss'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import { UserContext } from '../../UserContext';
 
 function Navbar() {
+  const {raceid, setRaceid} = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState(""); 
+  const [date, setDate] = useState("");
   const [data, setData] = useState([]);
 
-  const onSearch = (searchTerm) => {
+  const onSearch = (searchTerm,xdate, xraceid) => {
     /* console.log("Search Term", searchTerm); */
     setSearchTerm(searchTerm);
+    setDate(xdate);
+    setRaceid(xraceid);
+    console.log(raceid);
   }
 
   useEffect(() => {
@@ -33,7 +39,7 @@ function Navbar() {
     <div className='navbar'>
       <div className="wrapper">
         <div className="search">
-          <input type='text' placeholder='Search' value={searchTerm} onChange={(e)=>{
+          <input type='text' placeholder='Search' value={`${searchTerm}`} onChange={(e)=>{
             setSearchTerm(e.target.value);
           }}/>
          
@@ -43,16 +49,16 @@ function Navbar() {
             const raceName = item.name.toLocaleLowerCase();
             return lowerSearchTerm && raceName.startsWith(lowerSearchTerm) && raceName !== lowerSearchTerm;
           })
-          .slice(0, 10)
+          
           .map(item => (
-            <div onClick = {() => onSearch(item.name)}
+            <div onClick = {() => onSearch(item.name, item.date, item.raceid)}
                 key={item.raceid}
                  className='dropdown-row'>{`${item.name}, ${item.date}`} 
                  </div> 
           ))}
         </div>
         </div>
-        <SearchOutlinedIcon className='icon' onClick={() => onSearch(searchTerm)}/>
+        <SearchOutlinedIcon className='icon' onClick={() => onSearch(searchTerm, date, raceid)}/>
         
       </div>
     </div>
