@@ -53,14 +53,14 @@ function Featured() {
   console.log("Pit stops", pitStops);
   return (
     <div className='featured'>
-        <div className="title">Total Pit Stops</div>
+        <div className="title">Total Pit Stops (sec)</div>
         <div className='no_data'>
           {
             pitStops.length == 0 && <h3> No data available for pitstops</h3>
           }
         </div>
         <div className="chart">
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="100%" height="70%">
         <BarChart
           width={500}
           height={300}
@@ -78,7 +78,7 @@ function Featured() {
           <Tooltip />
           <Legend />
           <CartesianGrid strokeDasharray="3 3" />
-          <Bar dataKey="pit_stop_time" fill="#ff8800" background={{ fill: '#eee' }} />
+          <Bar className='bar' dataKey="pit_stop_time" fill="#ff8800" background={{ fill: '#bbb' }} />
         </BarChart>
       </ResponsiveContainer>
         </div>

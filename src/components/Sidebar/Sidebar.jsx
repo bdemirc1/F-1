@@ -5,8 +5,13 @@ import GroupWorkOutlinedIcon from '@mui/icons-material/GroupWorkOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SportsScoreOutlinedIcon from '@mui/icons-material/SportsScoreOutlined';
 import {Link} from "react-router-dom";
+import {DarkModeContext} from "../../darkModeContext";
+import { useContext } from 'react';
 
 function Sidebar() {
+
+    const {dispatch} = useContext(DarkModeContext);
+
   return (
     <div className='sidebar'>
         <div className="top">
@@ -44,8 +49,12 @@ function Sidebar() {
             </ul>
         </div>
         <div className="bottom">
-            <div className="colorOptions"></div>
-            <div className="colorOptions"></div>
+            <div className="colorOptions" 
+            onClick={() => dispatch({type: "LIGHT"})}>
+
+        </div>
+            <div className="colorOptions" 
+            onClick={() => dispatch({type: "DARK"})}></div>
         </div>
     </div>
   )

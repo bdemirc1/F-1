@@ -58,7 +58,7 @@ function Chart() {
   console.log(lapTimes);
   return (
     <div className='chart'>
-        <div className="title">Fastest Lap Times</div>
+        <div className="title">Fastest Lap Times (sec)</div>
         <ResponsiveContainer width="100%" height="70%">
          <AreaChart width={730} height={250} data={data}
           margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>

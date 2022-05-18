@@ -7,12 +7,18 @@ import {
 import Drivers from './pages/drivers/Drivers';
 import Constructors from './pages/constructors/Constructors';
 import AddDriver from './pages/addDriver/AddDriver';
-import {UserContext, UserProvider} from './UserContext';
+import { UserProvider} from './UserContext';
+import "./style/dark.scss";
+import { DarkModeContext } from './darkModeContext';
+import { useContext } from 'react';
 
 
 function App() {
+
+    const {darkMode} = useContext(DarkModeContext);
+  
     return (
-        <div className='App'>
+        <div className={ darkMode ? "app dark" : "app"}>
             <UserProvider>
                 <BrowserRouter>
                         <Routes>

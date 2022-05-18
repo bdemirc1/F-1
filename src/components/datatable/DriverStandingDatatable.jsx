@@ -68,7 +68,7 @@ function DriverStandingDatatable() {
     <div>
       <div className="title">Driver Standings</div>
       <div className='datatable' >
-          <DataGrid getRowId = {(row) => row.position}
+          <DataGrid className="datagrid" getRowId = {(row) => row.position}
           rows={rows}
           columns={columns}
           pageSize={10}

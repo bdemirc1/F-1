@@ -65,7 +65,7 @@ function DriversDatatable() {
         <div className="driversDatatable"></div>
         <div>
             <div className='datatable' >
-              <DataGrid getRowId = {(row) => row.code}
+              <DataGrid  className="datagrid" getRowId = {(row) => row.code}
               rows={rows}
               columns={columns}
               pageSize={10}

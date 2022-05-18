@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import './ConstructorDatatable.scss';
 import { DataGrid } from '@mui/x-data-grid';
 import { UserContext } from '../../UserContext';
+import { areArraysEqual } from '@mui/base';
 
 function ConstructorDatatable() {
     const {raceid} = useContext(UserContext);
@@ -57,7 +58,7 @@ function ConstructorDatatable() {
     <div>
         <div className="title">Constructor Standings</div>
         <div className='datatable'>
-             <DataGrid getRowId = {(row) => row.position}
+             <DataGrid className="datagrid" getRowId = {(row) => row.position}
                 rows={rows}
                 columns={columns}
                 pageSize={10}
