@@ -68,7 +68,7 @@ app.get('/fastestLapTime/:id', async(req, res) => {
         const fastestLapTime = await pool.query("select code, fastestlaptime from results, drivers\
                                                 where raceid = $1 and drivers.driverid = results.driverid", [id]);
         if(fastestLapTime.rows?.length){
-            console.log(fastestLapTime.rows)
+            //console.log(fastestLapTime.rows)
             return res.json(fastestLapTime.rows);
         }
 
