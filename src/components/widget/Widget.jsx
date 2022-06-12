@@ -4,6 +4,7 @@ import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import GroupWorkOutlinedIcon from '@mui/icons-material/GroupWorkOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { UserContext } from '../../UserContext';
+import {Link} from "react-router-dom";
 
 
 export default function Widget({ type }) {
@@ -78,7 +79,7 @@ export default function Widget({ type }) {
             data ={
                 title:race.name,
                 isDate: true,
-                link: 'See all races',
+                link: '',
                 icon: <DateRangeOutlinedIcon className='icon'/>,
                 info: race.date   
             };
@@ -87,7 +88,7 @@ export default function Widget({ type }) {
             data ={
                 title:'Top Constructor Standing',
                 isDate: false,
-                link: 'See all constructors',
+                link: <Link to='/constructor_standings'  style={{ textDecoration:"none", color:"#03b5fc" }}>Constructor Standings</Link>,
                 icon:  <GroupWorkOutlinedIcon className='icon'/>,
                 info: topConstructor.name
             };
@@ -96,7 +97,7 @@ export default function Widget({ type }) {
             data ={
                 title:'Top Driver Standing',
                 isDate: false,
-                link: 'See all drivers',
+                link: <Link to='/constructor_standings'  style={{ textDecoration:"none", color: "#03b5fc"}}>Driver Standings</Link>,
                 icon:  <PersonOutlineOutlinedIcon className='icon'/>,
                 info: topDriver.forename + " " + topDriver.surname
                 
