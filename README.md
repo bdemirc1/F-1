@@ -2,16 +2,16 @@ This is a PERN stack app to visualize actual Formula 1 data. The project uses ch
 
 ### Home page
 
-![test](https://github.com/bdemirc1/F-1/blob/main/Homepage.png?raw=true = 100x100)
+![F1](https://github.com/bdemirc1/F-1/blob/main/Homepage.png?raw=true = 100x100)
 
 ### Pit stops chart
 
-![test](https://github.com/bdemirc1/F-1/blob/main/pitStopChart.png?raw=true = 100x100)
+![F1pit](https://github.com/bdemirc1/F-1/blob/main/pitStopChart.png?raw=true = 100x100)
 
 ### Standings
 
-![test](https://github.com/bdemirc1/F-1/blob/main/StandingsView.png?raw=true = 100x100)
+![F1st](https://github.com/bdemirc1/F-1/blob/main/StandingsView.png?raw=true = 100x100)
 
 ### Search 
 
-![test](https://github.com/bdemirc1/F-1/blob/main/SearchRace.png?raw=true = 100x100)
+![F1search](https://github.com/bdemirc1/F-1/blob/main/SearchRace.png?raw=true = 100x100)
